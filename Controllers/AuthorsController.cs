@@ -1,12 +1,11 @@
 ﻿using LazyLoadingInAspNetCoreWebApI.AppDbContext;
 using LazyLoadingInAspNetCoreWebApI.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LazyLoadingInAspNetCoreWebApI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[Action]")]
     [ApiController]
     public class AuthorsController : ControllerBase
     {
@@ -18,7 +17,7 @@ namespace LazyLoadingInAspNetCoreWebApI.Controllers
         }
 
         // GET: api/authors
-        [HttpGet]
+        [HttpGet("GetAllAuthor")]
         public async Task<ActionResult<IEnumerable<Author>>> GetAuthors()
         {
             // Eager loading using Include method
@@ -28,7 +27,7 @@ namespace LazyLoadingInAspNetCoreWebApI.Controllers
         }
 
         // GET: api/authors/5
-        [HttpGet("{id}")]
+        [HttpGet("{GetAuthorById}")]
         public async Task<ActionResult<Author>> GetAuthor(int id)
         {
             // Eager loading for a specific author by ID
@@ -43,7 +42,7 @@ namespace LazyLoadingInAspNetCoreWebApI.Controllers
         }
 
         // POST: api/authors
-        [HttpPost]
+        [HttpPost("CreateAuthor")]
         public async Task<ActionResult<Author>> CreateAuthor(Author author)
         {
             _context.Authors.Add(author);
@@ -53,7 +52,7 @@ namespace LazyLoadingInAspNetCoreWebApI.Controllers
         }
 
         // PUT: api/authors/5
-        [HttpPut("{id}")]
+        [HttpPut("UpdateAuthorById")]
         public async Task<IActionResult> UpdateAuthor(int id, Author author)
         {
             if(id != author.AuthorId)
@@ -83,7 +82,7 @@ namespace LazyLoadingInAspNetCoreWebApI.Controllers
         }
 
         // DELETE: api/authors/5
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteAuthorById")]
         public async Task<IActionResult> DeleteAuthor(int id)
         {
             var author = await _context.Authors.FindAsync(id);
